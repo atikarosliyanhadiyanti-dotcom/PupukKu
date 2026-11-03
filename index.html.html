@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14532d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>PupukTani</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+<!-- LAYAR PEMBUKA -->
+<div class="splash" id="splash">
+  <div class="splash-logo">🌾</div>
+  <h1>Pupuk<b>Kyu</b></h1>
+  <p>Rekomendasi pemupukan</p>
+  <div class="splash-loader"></div>
+</div>
+
+<div class="app">
+
+  <!-- BAR ATAS -->
+  <header class="appbar">
+    <div class="appbar-logo">🌾</div>
+    <div class="appbar-teks">
+      <small>PupukKyu</small>
+      <strong id="judulBar">Beranda</strong>
+    </div>
+  </header>
+
+  <!-- ========== BERANDA ========== -->
+  <section class="layar" id="layar-beranda">
+    <div class="sapa">
+      <span class="sapa-emoji">👋</span>
+      <h2>Halo, Pak Tani!</h2>
+      <p>Hitung kebutuhan pupuk, jadwal, dan biayanya dalam hitungan detik.</p>
+      <button type="button" class="btn-putih" data-ke="hitung">Mulai hitung →</button>
+    </div>
+
+    <h3 class="judul-seksi">Pilih tanaman</h3>
+    <div class="tanaman-grid">
+      <button type="button" class="tile" data-tanaman="padi"><span>🌾</span>Padi</button>
+      <button type="button" class="tile" data-tanaman="jagung"><span>🌽</span>Jagung</button>
+      <button type="button" class="tile" data-tanaman="tembakau"><span>🍂</span>Tembakau</button>
+    </div>
+
+    <h3 class="judul-seksi">Cara kerja</h3>
+    <div class="langkah">
+      <div><b>1</b><p>Isi data lahan dan kondisi tanah</p></div>
+      <div><b>2</b><p>Tekan tombol hitung</p></div>
+      <div><b>3</b><p>Lihat dosis, jadwal, dan biaya</p></div>
+    </div>
+
+    <h3 class="judul-seksi">Tips</h3>
+    <div class="tips">
+      <div>💧 Beri pupuk saat tanah lembap, hindari sebelum hujan deras.</div>
+      <div>🧪 Uji tanah tiap 1–2 musim agar dosis lebih tepat.</div>
+    </div>
+  </section>
+
+  <!-- ========== HITUNG ========== -->
+  <section class="layar" id="layar-hitung" hidden>
+    <form id="form" class="form-app">
+
+      <div class="panel">
+        <div class="panel-kepala"><span class="nomor">1</span><div><h3>Data Lahan</h3><p>Tanaman dan luas lahan</p></div></div>
+        <div class="field">
+          <label for="tanaman">🌾 Jenis tanaman</label>
+          <select id="tanaman">
+            <option value="padi">Padi sawah</option>
+            <option value="jagung">Jagung</option>
+            <option value="tembakau">Tembakau</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="luas">📐 Luas lahan</label>
+          <div class="input-unit">
+            <input id="luas" type="number" inputmode="decimal" min="0.01" step="0.01" value="0.5" required>
+            <span class="satuan">ha</span>
+          </div>
+          <small>1 hektare = 10.000 m²</small>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-kepala"><span class="nomor">2</span><div><h3>Kondisi Tanah</h3><p>Dari uji tanah atau perkiraan penyuluh</p></div></div>
+        <div class="dua-kolom">
+          <div class="field">
+            <label for="p">Fosfor (P)</label>
+            <select id="p">
+              <option value="rendah">Rendah</option>
+              <option value="sedang" selected>Sedang</option>
+              <option value="tinggi">Tinggi</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="k">Kalium (K)</label>
+            <select id="k">
+              <option value="rendah">Rendah</option>
+              <option value="sedang" selected>Sedang</option>
+              <option value="tinggi">Tinggi</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ph">pH tanah</label>
+            <div class="input-unit">
+              <input id="ph" type="number" inputmode="decimal" min="3" max="10" step="0.1" value="6.0" required>
+              <span class="satuan">pH</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="co">C-organik</label>
+            <div class="input-unit">
+              <input id="co" type="number" inputmode="decimal" min="0" max="15" step="0.1" value="2.0" required>
+              <span class="satuan">%</span>
+            </div>
+          </div>
+        </div>
+        <small>pH wajar 3–10, C-organik wajar 0–15%.</small>
+      </div>
+
+      <div class="panel">
+        <div class="panel-kepala"><span class="nomor">3</span><div><h3>Harga Pupuk</h3><p>Sesuaikan dengan harga di kios</p></div></div>
+        <div class="dua-kolom">
+          <div class="field">
+            <label for="hUrea">Urea</label>
+            <div class="input-unit awalan"><span class="rp">Rp</span>
+              <input id="hUrea" type="number" inputmode="numeric" min="0" value="2250"><span class="satuan">/kg</span></div>
+          </div>
+          <div class="field">
+            <label for="hSp">SP-36</label>
+            <div class="input-unit awalan"><span class="rp">Rp</span>
+              <input id="hSp" type="number" inputmode="numeric" min="0" value="2400"><span class="satuan">/kg</span></div>
+          </div>
+          <div class="field">
+            <label for="hKcl">KCl</label>
+            <div class="input-unit awalan"><span class="rp">Rp</span>
+              <input id="hKcl" type="number" inputmode="numeric" min="0" value="2300"><span class="satuan">/kg</span></div>
+          </div>
+          <div class="field">
+            <label for="hLain">Organik/Dolomit</label>
+            <div class="input-unit awalan"><span class="rp">Rp</span>
+              <input id="hLain" type="number" inputmode="numeric" min="0" value="1000"><span class="satuan">/kg</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p id="error" class="note galat" hidden></p>
+      <button type="submit" class="btn-utama">Hitung rekomendasi →</button>
+    </form>
+  </section>
+
+  <!-- ========== HASIL ========== -->
+  <section class="layar" id="layar-hasil" hidden>
+
+    <div class="kosong" id="kosong">
+      <span>📋</span>
+      <h3>Belum ada hasil</h3>
+      <p>Isi data lahan terlebih dahulu, lalu tekan tombol hitung.</p>
+      <button type="button" class="btn-utama kecil" data-ke="hitung">Isi data lahan</button>
+    </div>
+
+    <div id="hasil" hidden>
+      <div class="hasil-banner">
+        <small>Perkiraan total biaya pupuk</small>
+        <strong id="totalBiaya">Rp 0</strong>
+        <span class="chip" id="infoHasil"></span>
+      </div>
+
+      <div class="panel">
+        <h3 class="panel-judul">💊 Ringkasan dosis</h3>
+        <div class="scroll"><table id="tabelDosis"></table></div>
+      </div>
+
+      <div class="panel">
+        <h3 class="panel-judul">📅 Jadwal pemupukan</h3>
+        <div class="scroll"><table id="tabelJadwal"></table></div>
+      </div>
+
+      <div class="panel">
+        <h3 class="panel-judul">📝 Catatan</h3>
+        <ul id="catatan"></ul>
+        <p class="note">Hasil ini panduan awal. Sesuaikan dengan kondisi lapangan dan arahan penyuluh.</p>
+      </div>
+
+      <div class="aksi-dua">
+        <button type="button" class="btn-sekunder" data-ke="hitung">✏️ Ubah data</button>
+        <button type="button" class="btn-sekunder" id="cetak">🖨️ Cetak / PDF</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RIWAYAT ========== -->
+  <section class="layar" id="layar-riwayat" hidden>
+    <div class="kosong" id="riwayatKosong">
+      <span>🕘</span>
+      <h3>Belum ada riwayat</h3>
+      <p>Setiap perhitungan akan tersimpan di perangkat ini.</p>
+    </div>
+    <div id="riwayatIsi" hidden>
+      <div id="daftarRiwayat" class="daftar-riwayat"></div>
+      <button type="button" class="btn-hapus" id="hapusRiwayat">🗑️ Hapus semua riwayat</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- MENU BAWAH -->
+<nav class="tabbar" aria-label="Menu utama">
+  <button type="button" class="tab aktif" data-ke="beranda"><span>🏠</span>Beranda</button>
+  <button type="button" class="tab" data-ke="hitung"><span>🧮</span>Hitung</button>
+  <button type="button" class="tab" data-ke="hasil"><span>📊</span>Hasil</button>
+  <button type="button" class="tab" data-ke="riwayat"><span>🕘</span>Riwayat</button>
+</nav>
+
+</body>
+</html>
